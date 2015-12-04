@@ -19,8 +19,9 @@ public class ContactManager implements ContactService {
     
     public void init() {
         this.contactsNumber=dao.getAllContacts().size();
-        if (contactsNumber>=maxContactBookSize) {
-        clear();    
+        while (contactsNumber>=maxContactBookSize) {
+        clear();  
+            System.err.println("Почищена книга контактов");
         }
     }
     

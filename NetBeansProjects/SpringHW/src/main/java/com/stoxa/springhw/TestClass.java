@@ -7,6 +7,7 @@ package com.stoxa.springhw;
 
 import java.util.List;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
@@ -15,14 +16,14 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class TestClass {
    public static void main(String[] args) {
-        ApplicationContext context =
-        new ClassPathXmlApplicationContext(new String[] {"config.xml", "config2.xml"});
+         ApplicationContext context = 
+      new AnnotationConfigApplicationContext(AppConfig.class);
         Contact c1 = (Contact) context.getBean("contact1");
         Contact c2 = (Contact) context.getBean("contact2");
         Contact c3 = (Contact) context.getBean("contact3");
         Contact c4 = (Contact) context.getBean("contact4");
         Contact c5 = (Contact) context.getBean("contact5");
-        ContactService contactService = (ContactService) context.getBean("ContactService");
+        ContactService contactService = (ContactService) context.getBean("contactService");
  
         System.out.println("ADD CONTACT ==============");
         contactService.addContact(c1);
