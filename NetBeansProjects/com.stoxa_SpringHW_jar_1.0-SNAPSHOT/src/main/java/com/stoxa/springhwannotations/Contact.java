@@ -5,7 +5,10 @@
  */
 package com.stoxa.springhwannotations;
 
+import com.sun.istack.internal.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+
+
 
 /**
  *
@@ -14,8 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class Contact {
     
     @Autowired
+    @NotNull
     private String firstName;
     private String lastName;
+    @NotNull
     private String phone;
     private String email;
  
@@ -66,4 +71,5 @@ public class Contact {
     public String toString() {
         return "Contact{" + ", firstName=" + firstName + ", lastName=" + lastName + ", phone=" + phone + ", email=" + email + '}';
     }
+    
 }

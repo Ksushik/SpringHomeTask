@@ -8,24 +8,41 @@ package com.stoxa.springhwannotations;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author ksu
  */
+@PropertySource("classpath:ContactBookMaximumSize.properties")
+@Service
 public class ContactManager implements ContactService {
     
-    
+    @Autowired
+    private Environment env;
+    int maxContactBookSize;
     private int contactsNumber;
     @Autowired
     private ContactDAO dao;
-    private int maxContactBookSize;
+    private String smaxContactBookSize;
+
+    public ContactManager() {
+        
+    }
+    
     
     
     
     @PostConstruct
     public void init() {
+        this.smaxContactBookSize=env.getProperty ("maxSize");
+        System.err.println(smaxContactBookSize);
+        this.maxContactBookSize = Integer.parseInt(smaxContactBookSize);
         this.contactsNumber=dao.getAllContacts().size();
+        System.err.println(smaxContactBookSize);
         if (contactsNumber>=maxContactBookSize) {
         clear();    
         }
@@ -83,6 +100,10 @@ public class ContactManager implements ContactService {
      */
     public void setMaxContactBookSize(int maxContactBookSize) {
         this.maxContactBookSize = maxContactBookSize;
+    }
+    
+    public void setSMaxContactBookSize(String smaxContactBookSize) {
+        this.smaxContactBookSize = smaxContactBookSize;
     }
 }
     

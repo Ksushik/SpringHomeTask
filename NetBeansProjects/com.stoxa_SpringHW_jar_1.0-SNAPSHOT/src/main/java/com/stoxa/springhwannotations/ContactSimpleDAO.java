@@ -8,16 +8,22 @@ package com.stoxa.springhwannotations;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author ksu
  */
+
+@Repository
 public class ContactSimpleDAO implements ContactDAO{
 
-    @Autowired
+    
     private List<Contact> contacts;
+
+    ContactSimpleDAO() {
+        this.contacts=new ArrayList<>();  
+    }
     
     @Override
     public void addContact(Contact contact) {
