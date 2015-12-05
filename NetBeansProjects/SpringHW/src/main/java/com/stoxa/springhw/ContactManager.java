@@ -6,16 +6,23 @@
 package com.stoxa.springhw;
 
 import java.util.List;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.ApplicationEventPublisherAware;
 
 /**
  *
  * @author ksu
  */
-public class ContactManager implements ContactService {
+public class ContactManager implements ContactService, ApplicationEventPublisherAware {
 
     private ContactDAO dao;
     private int maxContactBookSize;
     private int contactsNumber;
+    private ApplicationEventPublisher publisher;
+
+    public void setApplicationEventPublisher(ApplicationEventPublisher publisher){
+        this.publisher = publisher;
+    }
     
     public void init() {
         this.contactsNumber=dao.getAllContacts().size();
@@ -37,6 +44,7 @@ public class ContactManager implements ContactService {
  
     @Override
     public void deleteContact(Contact contact) {
+        publisher.publishEvent(new ClearEvent(this, contact));
         dao.deleteContact(contact);
     }
  
@@ -55,6 +63,7 @@ public class ContactManager implements ContactService {
     }
     
     public void clear() {
+        publisher.publishEvent(new ClearEvent(this, dao.getContact(contactsNumber-1)));
         dao.getAllContacts().remove(contactsNumber-1);
     }
 

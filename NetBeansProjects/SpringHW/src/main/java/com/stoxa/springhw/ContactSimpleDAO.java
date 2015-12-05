@@ -50,7 +50,7 @@ public class ContactSimpleDAO implements ContactDAO{
                 return contact;
             }
         }
-        return null;
+        throw new NullPointerException();
     }
     
     @Override
@@ -70,6 +70,16 @@ public class ContactSimpleDAO implements ContactDAO{
     public void setContacts(List<Contact> contacts) {
         this.contacts = contacts;
     }
- 
+    
+    public Contact getContact(int number) {
+        int i=0;
+        for(Contact contact : contacts) {
+            if(i==number) {
+                return contact;
+            }
+            i++;
+        }
+        throw new NullPointerException();
+    } 
 }
 

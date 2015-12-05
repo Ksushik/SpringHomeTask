@@ -16,6 +16,7 @@ public interface ContactDAO {
     public void updateContact(Contact contact);
     public void deleteContact(Contact contact);
     public Contact getContact(String phone);
+    public Contact getContact(int number);
     public List<Contact> getAllContacts();
     void clearAll();
     
